@@ -17,7 +17,10 @@ const setGoal = asyncHandler(async (req, res) => {
     return res.status(400);
     throw new Error('Please add a text field');
   }
-  res.status(201).json({ message: `${req.body.text}` });
+  const goal = await Goal.create({
+    text: req.body.text,
+  });
+  res.status(201).json(goal);
 });
 
 // @desc  Update goal
