@@ -43,32 +43,23 @@ const updateGoal = asyncHandler(async (req, res) => {
 // @access Private
 const deleteGoal = asyncHandler(async (req, res) => {
   try {
-    // Ensure the ID is coming from req.params
     const { id } = req.params;
-
     if (!id) {
       res.status(400);
       throw new Error('ID parameter is required');
     }
 
-    // Find the goal by ID
     const goal = await Goal.findById(id);
-
     if (!goal) {
       res.status(404);
       throw new Error('Goal not found');
     }
 
-    // Remove the goal
     await goal.deleteOne();
 
-    // Respond with success
     res.status(200).json({ message: 'Goal deleted successfully', id });
   } catch (error) {
-    // Log the error for debugging
     console.error(error);
-
-    // Send a generic server error response
     res.status(500).json({ message: error.message || 'Server error' });
   }
 });
