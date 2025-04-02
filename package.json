@@ -1,0 +1,22 @@
+{
+  "name": "mern-tutorial",
+  "version": "1.0.0",
+  "description": "Goal-Setter app to practice mern-stack ",
+  "license": "MIT",
+  "author": "Manuhe Teshome",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "mongoose": "^8.13.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
