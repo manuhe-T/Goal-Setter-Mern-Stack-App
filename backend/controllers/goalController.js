@@ -27,14 +27,50 @@ const setGoal = asyncHandler(async (req, res) => {
 // @route PUT /api/goals/:id
 // @access Private
 const updateGoal = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Update goal ${req.params.id}` });
+  const goal = await Goal.findById(req.params.id);
+  if (!goal) {
+    res.status(400);
+    throw new Error('Goal not found');
+  }
+  const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  res.status(200).json(updatedGoal);
 });
 
 // @desc  Delete goal
 // @route DELETE /api/goals/:id
 // @access Private
 const deleteGoal = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Delete goal ${req.params.id}` });
+  try {
+    // Ensure the ID is coming from req.params
+    const { id } = req.params;
+
+    if (!id) {
+      res.status(400);
+      throw new Error('ID parameter is required');
+    }
+
+    // Find the goal by ID
+    const goal = await Goal.findById(id);
+
+    if (!goal) {
+      res.status(404);
+      throw new Error('Goal not found');
+    }
+
+    // Remove the goal
+    await goal.deleteOne();
+
+    // Respond with success
+    res.status(200).json({ message: 'Goal deleted successfully', id });
+  } catch (error) {
+    // Log the error for debugging
+    console.error(error);
+
+    // Send a generic server error response
+    res.status(500).json({ message: error.message || 'Server error' });
+  }
 });
 
 module.exports = {
