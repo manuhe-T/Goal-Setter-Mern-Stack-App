@@ -9,7 +9,6 @@ connectDB(); // Connect to MongoDB
 
 const app = express();
 
-// Accept JSON and URL-encoded data in requests
 // Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
