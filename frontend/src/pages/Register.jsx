@@ -1,4 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { register, reset } from '../store/authSlice';
+import Spinner from '../components/Spinner';
 import { FaUser } from 'react-icons/fa';
 
 function Register() {
@@ -11,6 +16,22 @@ function Register() {
 
   const { name, email, password, password2 } = formData;
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+  useEffect(() => {
+    console.log('Auth state changed:', { user, isSuccess, isError, message });
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess && user) {
+      console.log('Redirecting to dashboard...');
+      navigate('/');
+    }
+    dispatch(reset());
+  }, [user, isSuccess, isError, message, navigate, dispatch]);
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -19,7 +40,24 @@ function Register() {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    if (!name || !email || !password || !password2) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+    if (password !== password2) {
+      toast.error('Passwords do not match');
+      return;
+    }
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters');
+      return;
+    }
+    dispatch(register({ name, email, password }));
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -76,8 +114,12 @@ function Register() {
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-block">
-              Submit
+            <button
+              type="submit"
+              className="btn btn-block"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Registering...' : 'Submit'}
             </button>
           </div>
         </form>

@@ -1,6 +1,7 @@
 const express = require('express');
 const colors = require('colors');
 const dotenv = require('dotenv').config();
+const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db');
 const port = process.env.PORT || 5000;
@@ -8,6 +9,18 @@ const port = process.env.PORT || 5000;
 connectDB(); // Connect to MongoDB
 
 const app = express();
+
+// Enable CORS for all routes
+app.use(cors());
+
+// OR configure CORS with specific options (recommended)
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Allow only your React frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+    credentials: true, // Allow cookies/sessions if needed
+  })
+);
 
 // Middleware to parse JSON and URL-encoded data
 app.use(express.json());
