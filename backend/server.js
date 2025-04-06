@@ -10,9 +10,6 @@ connectDB(); // Connect to MongoDB
 
 const app = express();
 
-// Enable CORS for all routes
-app.use(cors());
-
 // OR configure CORS with specific options (recommended)
 app.use(
   cors({
