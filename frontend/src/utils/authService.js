@@ -1,14 +1,16 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/users/';
+const API_URL = import.meta.env.VITE_API_URL + 'api/users/';
+
 // Register user
 const register = async (userData) => {
   try {
-    const response = await axios.post(API_URL, userData, {
+    const config = {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    };
+    const response = await axios.post(API_URL, userData, config);
 
     if (response.data) {
       localStorage.setItem('user', JSON.stringify(response.data));
