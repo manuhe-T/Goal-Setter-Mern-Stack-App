@@ -39,8 +39,7 @@ function Login() {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    const userData = { email, password };
-    dispatch(login(userData));
+    dispatch(login({ email, password }));
   };
 
   if (isLoading) {

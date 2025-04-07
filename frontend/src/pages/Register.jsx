@@ -22,16 +22,16 @@ function Register() {
     (state) => state.auth
   );
   useEffect(() => {
-    console.log('Auth state changed:', { user, isSuccess, isError, message });
     if (isError) {
       toast.error(message);
     }
     if (isSuccess && user) {
-      console.log('Redirecting to dashboard...');
+      toast.success('Registered successfully');
       navigate('/');
     }
     dispatch(reset());
   }, [user, isSuccess, isError, message, navigate, dispatch]);
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,

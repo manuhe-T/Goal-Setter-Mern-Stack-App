@@ -4,7 +4,6 @@ const API_URL = 'http://localhost:5000/api/users/';
 // Register user
 const register = async (userData) => {
   try {
-    console.log('Registering user at:', API_URL);
     const response = await axios.post(API_URL, userData, {
       headers: {
         'Content-Type': 'application/json',
@@ -18,16 +17,15 @@ const register = async (userData) => {
 
     return response.data;
   } catch (error) {
-    // Remove user from localStorage on error
     console.error('Registration error:', error.response || error);
     localStorage.removeItem('user');
-    throw error; // This will trigger the rejected case in your authSlice
+    throw error;
   }
 };
+
 // Login user
 const login = async (userData) => {
   try {
-    console.log('Logging user at:', API_URL + 'login');
     const response = await axios.post(API_URL + 'login', userData, {
       headers: {
         'Content-Type': 'application/json',
@@ -36,15 +34,14 @@ const login = async (userData) => {
 
     if (response.data) {
       localStorage.setItem('user', JSON.stringify(response.data));
-      console.log('Logging successful', response.data);
+      console.log('Login successful', response.data);
     }
 
     return response.data;
   } catch (error) {
-    // Remove user from localStorage on error
     console.error('Logging error:', error.response || error);
     localStorage.removeItem('user');
-    throw error; // This will trigger the rejected case in your authSlice
+    throw error;
   }
 };
 
