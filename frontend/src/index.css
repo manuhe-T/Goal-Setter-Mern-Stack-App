@@ -49,7 +49,16 @@ h3 {
   align-items: center;
   padding: 20px 0;
   border-bottom: 1px solid #e6e6e6;
-  margin-bottom: 60px;
+  margin-bottom: 25px;
+}
+
+.header .logo {
+  display: flex;
+  align-items: center;
+  color: #3d74d2;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 .header ul {
@@ -97,6 +106,7 @@ h3 {
   margin: 10px 0;
   padding: 20px 0 10px;
   position: relative;
+  margin-bottom: 30px;
 }
 
 .goal .close {
@@ -105,7 +115,11 @@ h3 {
   right: 15px;
   cursor: pointer;
   border: none;
-  background: none;
+  background: black;
+  padding: 2px 5px;
+  border-radius: 50%;
+  color: white;
+  transform: scale(1.2);
 }
 
 .form,
