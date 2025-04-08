@@ -14,12 +14,15 @@ function GoalForm() {
     <section className="form">
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label htmlFor="text">Goal</label>
+          <label htmlFor="text" className="label">
+            Type your Goal 👇 here
+          </label>
           <input
             type="text"
             name="text"
             id="text"
             value={text}
+            placeholder='eg. "Learn React"'
             onChange={(e) => {
               setText(e.target.value);
             }}
