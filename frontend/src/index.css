@@ -137,9 +137,9 @@ h3 {
 .form-group select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #e6e6e6;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  border: 2px solid #9a9797;
+  border-radius: 8px;
+  margin-block: 10px 13px;
   font-family: inherit;
 }
 
@@ -147,6 +147,14 @@ h3 {
   text-align: left;
   display: block;
   margin: 0 0 5px 3px;
+}
+.label {
+  text-align: left;
+  display: block;
+  margin: 0 0 5px 3px;
+  color: #6d6868;
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .btn {
